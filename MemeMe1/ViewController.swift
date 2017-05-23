@@ -179,6 +179,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         present(showShareScreen, animated: true, completion: nil)
     }
+
     
   
     
