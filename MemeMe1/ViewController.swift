@@ -171,14 +171,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // MARK: Share and Save Actions
     
-    @IBAction func shareMemeAction(_ sender: UIBarButtonItem) {
+    @IBAction func shareMeme(_ sender: UIBarButtonItem) {
         let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imageView.image!, memedImage: generateMemedImage())
         
         let memeForSharing = [meme]
         let showShareScreen = UIActivityViewController(activityItems: memeForSharing, applicationActivities: nil)
         
         present(showShareScreen, animated: true, completion: nil)
-    
     }
     
   
@@ -189,11 +188,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // create the delegate and assign the meme created to it
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.meme = meme
-
-       
     }
     
-    // MARK: Generating
+    // MARK: Generating Memed Image
 
     func generateMemedImage() -> UIImage {
         

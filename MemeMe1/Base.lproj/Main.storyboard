@@ -57,7 +57,7 @@
                                     <navigationItem title="MemeMe-1" id="6oa-ar-KwZ">
                                         <barButtonItem key="leftBarButtonItem" systemItem="action" id="bc2-fr-wMh">
                                             <connections>
-                                                <action selector="shareMemeAction:" destination="BYZ-38-t0r" id="LrY-NE-BZX"/>
+                                                <action selector="shareMeme:" destination="BYZ-38-t0r" id="Zw2-JH-rdA"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="7Gb-Yf-fTn">
