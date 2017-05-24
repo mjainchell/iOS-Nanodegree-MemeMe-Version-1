@@ -21,35 +21,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t3T-8g-BC6">
-                                <rect key="frame" x="0.0" y="20" width="414" height="61"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="61" id="KqR-zd-uaz"/>
-                                </constraints>
-                                <items>
-                                    <navigationItem title="MemeMe-1" id="6oa-ar-KwZ">
-                                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="bc2-fr-wMh">
-                                            <connections>
-                                                <action selector="shareMeme:" destination="BYZ-38-t0r" id="lNR-fL-A9P"/>
-                                            </connections>
-                                        </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="7Gb-Yf-fTn">
-                                            <connections>
-                                                <action selector="saveMemeAction:" destination="BYZ-38-t0r" id="4zg-0d-LTv"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wdy-Pp-glK">
-                                <rect key="frame" x="0.66666666666665719" y="81" width="414" height="611"/>
+                                <rect key="frame" x="-1" y="0.0" width="416" height="736"/>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0Bs-Ef-p2c">
-                                <rect key="frame" x="25" y="129" width="363.66666666666669" height="17"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
-                            </textField>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Wm-Yk-XaY">
                                 <rect key="frame" x="0.0" y="692" width="414" height="44"/>
                                 <items>
@@ -65,7 +39,6 @@
                                         </connections>
                                     </barButtonItem>
                                 </items>
-                                <color key="tintColor" red="0.0" green="0.25" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </toolbar>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ZtT-iV-oLM">
                                 <rect key="frame" x="25" y="627" width="364" height="17"/>
@@ -73,24 +46,46 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
+                            <navigationBar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t3T-8g-BC6">
+                                <rect key="frame" x="-1" y="20" width="414.33333333333331" height="61"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="61" id="KqR-zd-uaz"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="MemeMe-1" id="6oa-ar-KwZ">
+                                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="bc2-fr-wMh">
+                                            <color key="tintColor" red="1" green="0.0099468241871529806" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <connections>
+                                                <action selector="shareMeme:" destination="BYZ-38-t0r" id="lNR-fL-A9P"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0Bs-Ef-p2c">
+                                <rect key="frame" x="25" y="117" width="364" height="17"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="0Bs-Ef-p2c" firstAttribute="width" secondItem="wdy-Pp-glK" secondAttribute="width" constant="-50" id="2N4-d7-han"/>
-                            <constraint firstItem="ZtT-iV-oLM" firstAttribute="width" secondItem="wdy-Pp-glK" secondAttribute="width" constant="-50" id="9lc-EW-I58"/>
-                            <constraint firstItem="wdy-Pp-glK" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="Aec-kI-I31"/>
+                            <constraint firstItem="0Bs-Ef-p2c" firstAttribute="width" secondItem="wdy-Pp-glK" secondAttribute="width" constant="-52" id="2N4-d7-han"/>
+                            <constraint firstItem="ZtT-iV-oLM" firstAttribute="width" secondItem="wdy-Pp-glK" secondAttribute="width" constant="-52" id="9lc-EW-I58"/>
+                            <constraint firstItem="wdy-Pp-glK" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" constant="2" id="Aec-kI-I31"/>
                             <constraint firstItem="3Wm-Yk-XaY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="BwJ-Ko-Lny"/>
-                            <constraint firstItem="ZtT-iV-oLM" firstAttribute="top" secondItem="wdy-Pp-glK" secondAttribute="bottom" constant="-65" id="Igi-kR-7kD"/>
+                            <constraint firstItem="ZtT-iV-oLM" firstAttribute="top" secondItem="wdy-Pp-glK" secondAttribute="bottom" constant="-109" id="Igi-kR-7kD"/>
                             <constraint firstItem="3Wm-Yk-XaY" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="NwI-W6-HYM"/>
                             <constraint firstItem="t3T-8g-BC6" firstAttribute="centerX" secondItem="ZtT-iV-oLM" secondAttribute="centerX" id="Q12-r9-HhK"/>
                             <constraint firstItem="3Wm-Yk-XaY" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="SsC-sc-eWB"/>
                             <constraint firstItem="t3T-8g-BC6" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="V3g-51-pQS"/>
-                            <constraint firstItem="wdy-Pp-glK" firstAttribute="top" secondItem="t3T-8g-BC6" secondAttribute="bottom" id="Wde-Yr-0rp"/>
+                            <constraint firstItem="wdy-Pp-glK" firstAttribute="top" secondItem="t3T-8g-BC6" secondAttribute="bottom" constant="-81" id="Wde-Yr-0rp"/>
                             <constraint firstItem="ZtT-iV-oLM" firstAttribute="centerX" secondItem="wdy-Pp-glK" secondAttribute="centerX" id="Ww5-L1-PRZ"/>
                             <constraint firstItem="0Bs-Ef-p2c" firstAttribute="leading" secondItem="ZtT-iV-oLM" secondAttribute="leading" id="bfz-ch-9XQ"/>
                             <constraint firstItem="0Bs-Ef-p2c" firstAttribute="centerX" secondItem="3Wm-Yk-XaY" secondAttribute="centerX" id="gGQ-6N-DQd"/>
-                            <constraint firstItem="3Wm-Yk-XaY" firstAttribute="top" secondItem="wdy-Pp-glK" secondAttribute="bottom" id="nfg-uL-Go2"/>
-                            <constraint firstItem="wdy-Pp-glK" firstAttribute="top" secondItem="0Bs-Ef-p2c" secondAttribute="bottom" constant="-65" id="uyU-iY-J8l"/>
+                            <constraint firstItem="3Wm-Yk-XaY" firstAttribute="top" secondItem="wdy-Pp-glK" secondAttribute="bottom" constant="-44" id="nfg-uL-Go2"/>
+                            <constraint firstItem="wdy-Pp-glK" firstAttribute="top" secondItem="0Bs-Ef-p2c" secondAttribute="bottom" constant="-134" id="uyU-iY-J8l"/>
                             <constraint firstItem="t3T-8g-BC6" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="x5a-AW-T7K"/>
                         </constraints>
                     </view>
@@ -99,7 +94,6 @@
                         <outlet property="chooseFromAlbum" destination="GcG-oA-eyh" id="qaF-8g-7NH"/>
                         <outlet property="imageView" destination="wdy-Pp-glK" id="Pbb-Qv-LLr"/>
                         <outlet property="navbarMenu" destination="t3T-8g-BC6" id="nLx-QD-tNJ"/>
-                        <outlet property="saveMeme" destination="7Gb-Yf-fTn" id="YnY-H0-pxE"/>
                         <outlet property="shareMeme" destination="bc2-fr-wMh" id="9kz-ae-HCp"/>
                         <outlet property="takeNewPicture" destination="Lvx-zp-6d5" id="TOf-V0-Hbh"/>
                         <outlet property="toolbarMenu" destination="3Wm-Yk-XaY" id="bim-2Z-FnJ"/>
@@ -108,7 +102,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-41.5" y="115.5"/>
+            <point key="canvasLocation" x="-42.028985507246382" y="114.94565217391305"/>
         </scene>
     </scenes>
 </document>

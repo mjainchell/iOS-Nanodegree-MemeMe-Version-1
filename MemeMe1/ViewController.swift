@@ -18,11 +18,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var takeNewPicture: UIBarButtonItem!
     @IBOutlet weak var chooseFromAlbum: UIBarButtonItem!
     @IBOutlet weak var shareMeme: UIBarButtonItem!
-    @IBOutlet weak var saveMeme: UIBarButtonItem!
-    
-    let imagePicker = UIImagePickerController()
-    
 
+    let imagePicker = UIImagePickerController()
     
     let memeTextAttributes:[String:Any] = [
         NSStrokeColorAttributeName: UIColor.black,
@@ -79,18 +76,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return keyboardSize.cgRectValue.height
     }
     
+    // Shruti Choksi provided assistance regaridng using a conditional for the following two functions.
     func keyboardWillShow(_ notification: Notification) {
         if bottomTextField.isFirstResponder {
             view.frame.origin.y = 0 - getKeyboardHeight(notification)
         }
-        
     }
     
     func keyboardWillHide(_ notification: Notification) {
         if bottomTextField.isFirstResponder {
            view.frame.origin.y = 0
         }
-        
     }
 
     func subscribeToKeyboardNotification() {
@@ -133,7 +129,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 textField.text = "BOTTOM TEXT"
             }
         }
-
     }
     
     // MARK: Selecting an Image or taking a photo
@@ -169,26 +164,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         dismiss(animated: true, completion: nil)
     }
     
-    // MARK: Share and Save Actions
+    // MARK: Save and Share the Meme Actions
+    
+    func saveTheMeme() {
+        
+        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imageView.image!, memedImage: generateMemedImage())
+        
+        // Shruti Choksi provided assistance regaridng how to initialize and use this variable.
+        let memeAppDelegate = UIApplication.shared.delegate as! AppDelegate
+        memeAppDelegate.meme = meme
+    }
     
     @IBAction func shareMeme(_ sender: UIBarButtonItem) {
-        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imageView.image!, memedImage: generateMemedImage())
-        
-        let memeForSharing = [meme]
-        let showShareScreen = UIActivityViewController(activityItems: memeForSharing, applicationActivities: nil)
-        
+       
+        let memeToShare = [generateMemedImage()] as [Any]
+        let showShareScreen = UIActivityViewController(activityItems: memeToShare , applicationActivities: nil)
         present(showShareScreen, animated: true, completion: nil)
-    }
-
-    
-  
-    
-    @IBAction func saveMemeAction(_ sender: UIBarButtonItem) {
-        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imageView.image!, memedImage: generateMemedImage())
-        
-        // create the delegate and assign the meme created to it
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.meme = meme
+        saveTheMeme()
     }
     
     // MARK: Generating Memed Image
@@ -197,19 +189,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.navigationController?.setToolbarHidden(true, animated: false)
+        navbarMenu.isHidden = true
+        toolbarMenu.isHidden = true
         
-        UIGraphicsBeginImageContext(self.imageView.frame.size)
-        imageView.drawHierarchy(in: self.imageView.frame, afterScreenUpdates: true)
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        self.view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
         let memedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.navigationController?.setToolbarHidden(false, animated: false)
+        navbarMenu.isHidden = false
+        toolbarMenu.isHidden = false
         
         return memedImage
     }
-
-    
 
 }
 
