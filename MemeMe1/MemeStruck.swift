@@ -1,5 +1,5 @@
 //
-//  MemeStruck.swift
+//  MemeStruck
 //  MemeMe1
 //
 //  Created by Mark Jainchell on 5/22/17.

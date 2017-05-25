@@ -27,20 +27,20 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
         NSStrokeWidthAttributeName: -3.0]
     
-    func memeTextStyle() {
-        imagePicker.delegate = self
-        topTextField.delegate = self
-        bottomTextField.delegate = self
-        topTextField.text = "TOP TEXT"
-        bottomTextField.text = "BOTTOM TEXT"
-        topTextField.tag = 1
-        bottomTextField.tag = 2
-        topTextField.defaultTextAttributes = memeTextAttributes
-        bottomTextField.defaultTextAttributes = memeTextAttributes
-        topTextField.textAlignment = .center
-        bottomTextField.textAlignment = .center
+    // The following function has been added and functions refactored based on Code Review
+    func configureTextFields(textField: UITextField, startingText: String) {
+        textField.delegate = self
+        textField.text = startingText
+        textField.defaultTextAttributes = memeTextAttributes
+        textField.textAlignment = .center
     }
     
+    func memeTextStyle() {
+        imagePicker.delegate = self
+        configureTextFields(textField: topTextField, startingText: "TOP TEXT")
+        configureTextFields(textField: bottomTextField, startingText: "BOTTOM TEXT")
+    }
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
         memeTextStyle()
@@ -60,11 +60,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // MARK: Check if a camera is available and adjust button
     
     func checkForCamera() {
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            self.takeNewPicture.isEnabled = true
-        } else {
-            self.takeNewPicture.isEnabled = false
-        }
+        // This function has been refactored to use the Ternary Conditional Operator based on Code Review
+        UIImagePickerController.isSourceTypeAvailable(.camera) ? (self.takeNewPicture.isEnabled = true) : (self.takeNewPicture.isEnabled = false)
     }
     
     // MARK: Adjusting keyboard position
@@ -107,50 +104,59 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     // MARK: Managing defaut text in text fields
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField.tag == 1 {
+    // The following function has been added and functions refactored based on Code Review
+    func adjustTextFieldContent(_ textField: UITextField) {
+        if textField == topTextField {
             if textField.text == "TOP TEXT" {
                 textField.text = ""
-            }
-        } else if textField.tag == 2 {
-            if textField.text == "BOTTOM TEXT" {
-                textField.text = ""
-            }
-        }
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField.tag == 1 {
-            if textField.text == "" {
+            } else if textField.text == "" {
                 textField.text = "TOP TEXT"
             }
-        } else if textField.tag == 2 {
-            if textField.text == "" {
+        } else if textField == bottomTextField {
+            if textField.text == "BOTTOM TEXT" {
+                textField.text = ""
+            } else if textField.text == "" {
                 textField.text = "BOTTOM TEXT"
             }
         }
     }
-    
-    // MARK: Selecting an Image or taking a photo
-    
-    @IBAction func choosePictureFromAlbum(_ sender: UIBarButtonItem) {
-        imagePicker.allowsEditing = false
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
-        present(imagePicker, animated: true, completion: nil)
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        adjustTextFieldContent(textField)
     }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        adjustTextFieldContent(textField)
+    }
+
+    // MARK: Selecting an Image or taking a photo
+ 
+    // The following function has been added and functions refactored based on Code Review
+    func chooseSourceType(sourceType: UIImagePickerControllerSourceType) {
+        if sourceType == .photoLibrary {
+            imagePicker.allowsEditing = false
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+            present(imagePicker, animated: true, completion: nil)
+        } else if sourceType == .camera {
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                imagePicker.allowsEditing = false
+                imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+                imagePicker.cameraCaptureMode = .photo
+                imagePicker.modalPresentationStyle = .fullScreen
+                present(imagePicker, animated: true, completion: nil)
+            } else {
+                NSLog("NO CAMERA")
+            }
+        }
+    }
+    
+    @IBAction func choosePictureFromAlbum(_ sender: UIBarButtonItem) {
+        chooseSourceType(sourceType: .photoLibrary)
+    }
     
     @IBAction func takeNewPicture(_ sender: UIBarButtonItem) {
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            imagePicker.allowsEditing = false
-            imagePicker.sourceType = UIImagePickerControllerSourceType.camera
-            imagePicker.cameraCaptureMode = .photo
-            imagePicker.modalPresentationStyle = .fullScreen
-            present(imagePicker, animated: true, completion: nil)
-        } else {
-            NSLog("NO CAMERA")
-        }
+        chooseSourceType(sourceType: .camera)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
@@ -168,11 +174,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func saveTheMeme() {
         
-        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imageView.image!, memedImage: generateMemedImage())
-        
-        // Shruti Choksi provided assistance regaridng how to initialize and use this variable.
-        let memeAppDelegate = UIApplication.shared.delegate as! AppDelegate
-        memeAppDelegate.meme = meme
+        // Addition of this conditional based on Code Review
+        if imageView.image != nil {
+            let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, originalImage: imageView.image!, memedImage: generateMemedImage())
+            
+            // Shruti Choksi provided assistance regaridng how to initialize and use this variable.
+            let memeAppDelegate = UIApplication.shared.delegate as! AppDelegate
+            memeAppDelegate.meme = meme
+
+        }
     }
     
     @IBAction func shareMeme(_ sender: UIBarButtonItem) {
@@ -180,7 +190,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let memeToShare = [generateMemedImage()] as [Any]
         let showShareScreen = UIActivityViewController(activityItems: memeToShare , applicationActivities: nil)
         present(showShareScreen, animated: true, completion: nil)
-        saveTheMeme()
+        
+        // This change made based on Code Review, code example sourced from: https://stackoverflow.com/questions/40120922/uiactivityviewcontrollercompletionwithitemshandler-having-error-with-new-update
+        showShareScreen.completionWithItemsHandler =  { (activityType: UIActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) -> Void in
+            if completed == true {
+                self.saveTheMeme()
+            }
+        }
     }
     
     // MARK: Generating Memed Image
